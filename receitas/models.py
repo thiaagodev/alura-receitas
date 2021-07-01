@@ -11,3 +11,5 @@ class Receita(models.Model):
     rendimento = models.CharField(max_length=100)
     categoria = models.CharField(max_length=100)
     data = models.DateField(auto_now_add=True)
+    publicada = models.BooleanField(default=False)
+
