@@ -10,6 +10,6 @@ class Receita(models.Model):
     tempo_de_preparo = models.IntegerField()
     rendimento = models.CharField(max_length=100)
     categoria = models.CharField(max_length=100)
-    data = models.DateField(auto_now_add=True)
+    data = models.DateTimeField(auto_now_add=True)
     publicada = models.BooleanField(default=False)
 
