@@ -49,11 +49,15 @@ def login(request):
                 auth.login(request, user)
                 print('Login realizado com sucesso!')
                 return redirect('dashboard')
-                
+
     return render(request, 'usuarios/login.html')
 
 def logout(request):
-    pass
+    auth.logout(request)
+    return redirect('index')
 
 def dashboard(request):
-    return render(request, 'usuarios/dashboard.html')
+    if request.user.is_authenticated:
+        return render(request, 'usuarios/dashboard.html')
+    else:
+        return redirect('index')
