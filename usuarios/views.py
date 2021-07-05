@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 from receitas.models import Receita
 
 def cadastro(request):
@@ -11,25 +11,25 @@ def cadastro(request):
         senha2 = request.POST['password2']
 
         if not nome.strip():
-            print('O nome não pode ser em branco!')
+            messages.error(request, 'O nome não pode ser em branco!')
             return redirect('cadastro')
 
         if not email.strip():
-            print('O email não pode ser em branco!')
+            messages.error(request, 'O email não pode ser em branco!')
             return redirect('cadastro')
 
         if senha != senha2:
-            print('As senhas não são iguais!')
+            messages.error(request, 'As senhas não são iguais!')
             return redirect('cadastro')
 
         if User.objects.filter(email=email).exists():
-            print('Usuário já cadastrado!')
+            messages.error(request, 'Usuário já cadastrado!')
             return redirect('cadastro')
         
         user = User.objects.create_user(username=nome, email=email, password=senha)
         user.save()
-        print('Usuário cadastrado com sucesso!')
 
+        messages.success(request, 'Usuário cadastrado com sucesso!')
         return redirect('login')
     else:
         return render(request, 'usuarios/cadastro.html')
@@ -39,7 +39,7 @@ def login(request):
         email = request.POST['email']
         senha = request.POST['senha']
         if email == '' or senha == '':
-            print('Os campos email e senha não podem ficar em branco!')
+            messages.error(request, 'Os campos email e senha não podem ficar em branco!')
             return redirect('login')
         
         if User.objects.filter(email=email).exists():
@@ -48,7 +48,7 @@ def login(request):
 
             if user is not None:
                 auth.login(request, user)
-                print('Login realizado com sucesso!')
+                messages.success(request, 'Login realizado com sucesso!')
                 return redirect('dashboard')
 
     return render(request, 'usuarios/login.html')
