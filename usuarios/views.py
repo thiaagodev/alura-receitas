@@ -46,6 +46,9 @@ def login(request):
             messages.error(request, 'Os campos email e senha não podem ficar em branco!')
             return redirect('login')
         
+        if not User.objects.filter(email=email).exists():
+            messages.error(request, 'O usuário não existe!')
+
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
@@ -97,6 +100,15 @@ def deleta_receita(request, receita_id):
     receita.delete()
     messages.success(request, f'A receita {receita.nome} foi delatada com sucesso!')
     return redirect('dashboard')
+
+def edita_receita(request, receita_id):
+    receita = get_object_or_404(Receita, pk=receita_id)
+    receita_editar = {
+        'receita': receita
+    }
+   
+    return render(request, 'usuarios/edita_receita.html', receita_editar)
+
 
 def campo_vazio(campo):
     return not campo.strip()
