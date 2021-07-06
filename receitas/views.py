@@ -8,14 +8,14 @@ def index(request):
     dados = {
         'receitas': receitas
     }
-    return render(request, 'index.html', dados)
+    return render(request, 'receitas/index.html', dados)
 
 def receita(request, receita_id):
     receita = get_object_or_404(Receita, pk=receita_id)
     dados = {
         'receita': receita
     }
-    return render(request, 'receita.html', dados)
+    return render(request, 'receitas/receita.html', dados)
 
 def buscar(request):
     lista_receitas = Receita.objects.order_by('-data').filter(publicada=True)
@@ -29,4 +29,4 @@ def buscar(request):
         'receitas': lista_receitas
     }
 
-    return render(request, 'buscar.html', dados)
+    return render(request, 'receitas/buscar.html', dados)
