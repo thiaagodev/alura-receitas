@@ -6,6 +6,7 @@ from receitas.models import Receita
 
 # Create your views here.
 def index(request):
+    """ Retorna uma página mostrando todas as receitas publicadas com paginação """
     receitas = Receita.objects.order_by('-data').filter(publicada=True)
     paginator = Paginator(receitas, 6)
     page = request.GET.get('page')
@@ -18,6 +19,7 @@ def index(request):
     return render(request, 'receitas/index.html', dados)
 
 def receita(request, receita_id):
+    """ Retorna os detalhes de uma determinada receita dado o seu id """
     receita = get_object_or_404(Receita, pk=receita_id)
     dados = {
         'receita': receita
@@ -25,6 +27,7 @@ def receita(request, receita_id):
     return render(request, 'receitas/receita.html', dados)
 
 def cria_receita(request):
+    """ Recebe os dados e cria uma nova receita """
     if request.method == 'POST':
         nome_receita = request.POST['nome_receita']
         ingredientes = request.POST['ingredientes']
@@ -43,12 +46,14 @@ def cria_receita(request):
         return render(request, 'receitas/cria_receita.html')
 
 def deleta_receita(request, receita_id):
+    """ Deleta uma receita """
     receita = get_object_or_404(Receita, pk=receita_id)
     receita.delete()
     messages.success(request, f'A receita {receita.nome} foi delatada com sucesso!')
     return redirect('dashboard')
 
 def edita_receita(request, receita_id):
+    """ Retorna um formulário para edição de uma determinada receita dado o seu id """
     receita = get_object_or_404(Receita, pk=receita_id)
     receita_editar = {
         'receita': receita
@@ -57,6 +62,7 @@ def edita_receita(request, receita_id):
     return render(request, 'receitas/edita_receita.html', receita_editar)
 
 def atualiza_receita(request):
+    """ Atualiza de fato a receita após ter sido editada """
     if request.method == 'POST':
         receita_id = request.POST['receita_id']
 
