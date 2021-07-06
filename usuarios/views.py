@@ -109,6 +109,24 @@ def edita_receita(request, receita_id):
    
     return render(request, 'usuarios/edita_receita.html', receita_editar)
 
+def atualiza_receita(request):
+    if request.method == 'POST':
+        receita_id = request.POST['receita_id']
+
+        receita = Receita.objects.get(pk=receita_id)
+        receita.nome = request.POST['nome_receita']
+        receita.ingredientes = request.POST['ingredientes']
+        receita.modo_preparo = request.POST['modo_preparo']
+        receita.tempo_de_preparo = request.POST['tempo_preparo']
+        receita.rendimento = request.POST['rendimento']
+        receita.categoria = request.POST['categoria']
+
+        if 'foto_receita' in request.FILES:
+            receita.foto = request.FILES['foto_receita']
+        
+        receita.save()
+        messages.success(request, f'Receita {receita.nome} atualizada com sucesso!')
+        return redirect('dashboard')
 
 def campo_vazio(campo):
     return not campo.strip()
