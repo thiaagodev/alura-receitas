@@ -1,6 +1,6 @@
 # Alura Receitas
 
-O Alura receitas é uma aplicação que foi desenvolvida ao longo de cursos da formação Django da Alura.
+O Alura receitas é uma aplicação que foi desenvolvida ao longo de 4 cursos da formação Django da Alura.
 Trata-se de um site de receitas onde é possível se cadastrar e criar suas próprias receitas e visualizar receitas publicadas por outros usuários/admins, além da parte de administração do Django que é muito poderosa, onde podemos gerenciar todos os dados na nossa aplicação.
 
 <strong>Curso:</strong> https://cursos.alura.com.br/formacao-django
