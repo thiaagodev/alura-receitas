@@ -45,4 +45,4 @@ Trata-se de um site de receitas onde é possível se cadastrar e criar suas pró
 - Para instalar as libs necessárias use o comando "pip install -r requirements.txt"
 - Crie um arquivo .env na raiz do projeto com as informações do banco de dados, ou use o padrão sqlite alterando no settings.py.
 - Rode as migrations com o comando "python manage.py migrate"
-- Rode o servidor com o comando "python3 manage.py runserver"
+- Rode o servidor com o comando "python manage.py runserver"
